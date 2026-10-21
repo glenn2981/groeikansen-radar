@@ -5,7 +5,7 @@ from datetime import datetime, timezone
 
 
 st.set_page_config(page_title="Groeikansen Radar", page_icon="📈", layout="wide")
-[16:29, 21-10-2026] Brian: st.markdown("""
+st.markdown("""
 <style>
 .stApp {
     background-color: #0b1120;
@@ -40,67 +40,11 @@ div[data-testid="stAlert"] {
 }
 </style>
 """, unsafe_allow_html=True)
-[16:46, 21-10-2026] Brian: st.markdown("""
+st.markdown("""
 <style>
-.stApp {
-    background-color: #0b1120;
-    color: #f8fafc;
+h1 {
+    font-size: 42px !important;
 }
-
-[data-testid="stHeader"] {
-    background-color: #0b1120;
-}
-
-[data-testid="stMarkdownContainer"],
-[data-testid="stMarkdownContainer"] p,
-[data-testid="stMarkdownContainer"] li,
-[data-testid="stCaptionContainer"],
-label {
-    color: #f1f5f9 !important;
-}
-
-[data-testid="stMetric"] {
-    background-color: #172338;
-    border: 1px solid #3b4b65;
-    padding: 18px;
-    border-radius: 12px;
-}
-
-[data-testid="stMetricLabel"],
-[data-testid="stMetricLabel"] p {
-    color: #cbd5e1 !important;
-}
-
-[data-testid="stMetricValue"],
-[data-testid="stMetricValue"] div {
-    color: #ffffff !important;
-}
-
-[data-testid="stMetricDelta"] {
-    font-weight: bold;
-}
-
-h1, h2, h3 {
-    color: #ffffff !important;
-}
-
-[data-testid="stAlert"] {
-    border-radius: 12px;
-}
-
-.stButton > button {
-    background-color: #16a34a;
-    color: #ffffff;
-    border-radius: 10px;
-    border: none;
-    padding: 8px 18px;
-}
-
-.stButton > button:hover {
-    background-color: #15803d;
-    color: #ffffff;
-}
-
 </style>
 """, unsafe_allow_html=True)
 st.title("📈 Groeikansen Radar")
