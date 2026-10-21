@@ -17,9 +17,17 @@ st.markdown("""
 [data-testid="stMetric"] {
     background-color: #172338;
     color: #ffffff;
+    
     border: 1px solid #293750;
     padding: 16px;
     border-radius: 12px;
+}
+[data-testid="stMetricValue"] {
+    color: #ffffff !important;
+}
+
+[data-testid="stMetricLabel"] {
+    color: #ffffff !important;
 }
 h1, h2, h3 {
     color: #f8fafc;
