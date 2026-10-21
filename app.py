@@ -16,6 +16,7 @@ st.markdown("""
 }
 [data-testid="stMetric"] {
     background-color: #172338;
+    color: #ffffff;
     border: 1px solid #293750;
     padding: 16px;
     border-radius: 12px;
