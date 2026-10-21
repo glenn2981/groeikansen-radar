@@ -37,7 +37,7 @@ def safe_float(value):
         return None
 
 def load_ticker(symbol):
-    ticker = history(Ticker(symbol.strip().upper())
+    ticker = yf.Ticker(symbol.strip().upper())
     hist = ticker.history(period="6mo", interval="1d", auto_adjust=True)
     info = {}
     try:
