@@ -3,7 +3,43 @@ import pandas as pd
 import yfinance as yf
 from datetime import datetime, timezone
 
+
 st.set_page_config(page_title="Groeikansen Radar", page_icon="📈", layout="wide")
+st.markdown("""
+<style>
+.stApp {
+    background-color: #0b1120;
+    color: #f1f5f9;
+}
+[data-testid="stHeader"] {
+    background-color: #0b1120;
+}
+[data-testid="stMetric"] {
+    background-color: #172338;
+    border: 1px solid #293750;
+    padding: 16px;
+    border-radius: 12px;
+}
+h1, h2, h3 {
+    color: #f8fafc;
+}
+div[data-testid="stAlert"] {
+    border-radius: 12px;
+}
+.stButton > button {
+    background-color: #16a34a;
+    color: white;
+    border-radius: 10px;
+    border: none;
+    padding: 8px 18px;
+}
+.stButton > button:hover {
+    background-color: #15803d;
+    color: white;
+    border: none;
+}
+</style>
+""", unsafe_allow_html=True)
 
 st.title("📈 Groeikansen Radar")
 st.caption("Wereldwijde groeiaandelen • markttrends • openbare beleggersinformatie")
