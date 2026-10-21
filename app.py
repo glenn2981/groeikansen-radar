@@ -233,4 +233,59 @@ if st.button("Toon koersgrafiek"):
 st.divider()
 st.caption(f"Groeikansen Radar • prototype • laatst geopend: {datetime.now().strftime('%d-%m-%Y %H:%M')}")
 st.caption("Controleer altijd de brongegevens. Geen enkel model kan toekomstige koersstijgingen garanderen.")
-                                                                                                                                                                                    
+st.divider()
+st.subheader("📊 Rangschikking van groeiaandelen")
+
+ranking_tickers = ["NVDA", "MSFT", "AMZN", "GOOGL", "META", "TSM", "ASML"]
+
+if st.button("Bereken rangschikking"):
+    ranking_rows = []
+
+    with st.spinner("Aandelen en financiële gegevens ophalen..."):
+        for ticker in ranking_tickers:
+            try:
+                stock = yf.Ticker(ticker)
+                info = stock.info
+                history = stock.history(period="1y")
+
+                if history.empty:
+                    continue
+
+                growth = info.get("revenueGrowth")
+                pe = info.get("forwardPE") or info.get("trailingPE")
+                volatility = history["Close"].pct_change().std() * (252 ** 0.5) * 100
+
+                if growth is None or pe is None:
+                    continue
+
+                growth_score = max(0, min(100, growth * 100))
+                valuation_score = max(0, min(100, 100 / max(pe, 1)))
+                risk_score = max(0, min(100, 100 - volatility))
+
+                total_score = (
+                    growth_score * 0.4
+                    + valuation_score * 0.3
+                    + risk_score * 0.3
+                )
+
+                ranking_rows.append({
+                    "Aandeel": ticker,
+                    "Omzetgroei (%)": round(growth * 100, 1),
+                    "K/W vooruit": round(pe, 1),
+                    "Volatiliteit (%)": round(volatility, 1),
+                    "Score": round(total_score, 1),
+                })
+
+            except Exception:
+                continue
+
+    if ranking_rows:
+        ranking = pd.DataFrame(ranking_rows)
+        ranking = ranking.sort_values("Score", ascending=False)
+        st.dataframe(ranking, use_container_width=True, hide_index=True)
+        st.caption(
+            "Indicatieve score: 40% groei, 30% waardering en 30% risico. "
+            "Ontbrekende gegevens kunnen aandelen uitsluiten. Geen beleggingsadvies."
+        )
+    else:
+        st.warning("Geen volledige gegevens beschikbaar. Probeer het later opnieuw.")                                                                                                                                                                                    
