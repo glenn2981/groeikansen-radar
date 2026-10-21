@@ -192,7 +192,44 @@ with tab4:
                 st.warning("Er zijn via deze bron geen institutionele houders beschikbaar voor deze ticker.")
         except Exception:        
             st.warning("Houdersgegevens zijn op dit moment niet beschikbaar voor deze ticker.")
+st.subheader("Koersgrafiek per aandeel")
 
+chart_symbol = st.selectbox(
+    "Kies een aandeel voor de grafiek",
+    ["NVDA", "MSFT", "ASML", "AMZN", "GOOGL", "META", "TSM"]
+)
+
+chart_period_label = st.selectbox(
+    "Periode",
+    ["1 maand", "6 maanden", "1 jaar", "5 jaar"]
+)
+
+chart_periods = {
+    "1 maand": "1mo",
+    "6 maanden": "6mo",
+    "1 jaar": "1y",
+    "5 jaar": "5y"
+}
+
+if st.button("Toon koersgrafiek"):
+    try:
+        chart_history = yf.Ticker(chart_symbol).history(
+            period=chart_periods[chart_period_label],
+            interval="1d",
+            auto_adjust=True
+        )
+
+        if chart_history.empty:
+            st.warning("Er zijn geen koersgegevens beschikbaar.")
+        else:
+            st.line_chart(chart_history["Close"])
+            st.caption(
+                f"Laatste beschikbare handelsdag: "
+                f"{chart_history.index[-1].strftime('%d-%m-%Y')}. "
+                "Dit is niet noodzakelijk een live koers."
+            )
+    except Exception as e:
+        st.warning("De koersgrafiek kon niet worden geladen. Probeer het later opnieuw.")
 st.divider()
 st.caption(f"Groeikansen Radar • prototype • laatst geopend: {datetime.now().strftime('%d-%m-%Y %H:%M')}")
 st.caption("Controleer altijd de brongegevens. Geen enkel model kan toekomstige koersstijgingen garanderen.")
