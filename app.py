@@ -37,7 +37,7 @@ def safe_float(value):
         return None
 
 def load_ticker(symbol):
-    ticker = yf.Ticker(symbol.strip().upper())
+    ticker = history(Ticker(symbol.strip().upper())
     hist = ticker.history(period="6mo", interval="1d", auto_adjust=True)
     info = {}
     try:
@@ -66,6 +66,7 @@ with tab1:
                 cols[i].metric(symbol, "Geen data")
         except Exception:
             cols[i].metric(symbol, "Niet beschikbaar")
+    st.caption("De getoonde koersen zijn de laatst beschikbare dagkoersen; ze zijn niet gegarandeerd live.")
     st.markdown("### Wat deze marktmeters volgen")
     st.write(
         "- **SPY**: Amerikaanse brede aandelenmarkt\n"
@@ -189,9 +190,10 @@ with tab4:
                 )
             else:
                 st.warning("Er zijn via deze bron geen institutionele houders beschikbaar voor deze ticker.")
-        except Exception:
+        except Exception:        
             st.warning("Houdersgegevens zijn op dit moment niet beschikbaar voor deze ticker.")
 
 st.divider()
 st.caption(f"Groeikansen Radar • prototype • laatst geopend: {datetime.now().strftime('%d-%m-%Y %H:%M')}")
 st.caption("Controleer altijd de brongegevens. Geen enkel model kan toekomstige koersstijgingen garanderen.")
+                                                                                                                                                                                    
